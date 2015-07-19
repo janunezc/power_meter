@@ -43,8 +43,8 @@ void loop()
   double Dato2;
     
 
-  if (Irms1 > 0.09){
-    pvCloud.LogEntry("Calculating Dato1 on Irms1 > 0.09");
+  if (Irms1 > 0.03){
+    pvCloud.LogEntry("Calculating Dato1 on Irms1 > 0.03");
     Dato1 = Irms1*110.0;
     Serial.print("Apparent power 1: ");
     Serial.println(Dato1);         // Apparent power
@@ -66,7 +66,7 @@ void loop()
     
   }
   else{
-    pvCloud.LogEntry("Calculating Dato1 on Irms <= 0.09");
+    pvCloud.LogEntry("Calculating Dato1 on Irms <= 0.03");
     Dato1 = 0;
     Serial.print("Apparent power 1: ");
     Serial.println(Dato1);         // Apparent power
