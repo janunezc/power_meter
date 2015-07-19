@@ -3,6 +3,7 @@
   Created by Jose Nunez, July 18 2015
   Copyright 2015(c) Intel Corporation
   MIT License
+  Official Development: https://github.com/janunezc/pvcloud_arduino_library
 */
 #include "Arduino.h"
 class PVCloud
