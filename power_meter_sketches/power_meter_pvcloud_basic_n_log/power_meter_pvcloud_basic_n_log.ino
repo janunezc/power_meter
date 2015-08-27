@@ -34,6 +34,8 @@ void setup()
 void loop()
 {
   pvCloud.LogEntry("loop begin()"); 
+
+  readAndProcessPumpAndChillerData();
     
   pvCloud.LogEntry("reading emon1...");
   double Irms1 = emon1.calcIrms(500);  // Calculate Irms only
@@ -132,9 +134,47 @@ if (Irms2 > 0.09){
     Serial1.println(Irms2);
 
   }
+
   pvCloud.LogEntry("loop() end");
 }
 
+String prev_PumpValue = "";
+String prev_ChillerValue = "";
+int debugCount = 0;
+
+void readAndProcessPumpAndChillerData(){
+  Serial.println("Reading PUMP and CHILLER Values from pvCloud");
+  String pumpValue =  pvCloud.RetrieveStringValue("PUMP");
+  String chillerValue = pvCloud.RetrieveStringValue("CHILLER");
+
+  if(debugCount<10){
+    Serial.print("PUMP:"); Serial.println(pumpValue);
+    Serial.print("CHILLER:"); Serial.println(chillerValue);
+  }
+  if(prev_PumpValue != pumpValue){
+    prev_PumpValue = pumpValue;
+
+    if(pumpValue=="1"){
+      Serial.println("PUMP IS ON NOW");
+      //JONATHAN: ADD CODE HERE TO MANIPULATE PINS WHEN PUMP IS ON
+    } else {
+      Serial.println("PUMP IS OFF NOW");
+      //JONATHAN: ADD CODE HERE TO MANIPULATE PINS WHEN PUMP IS OFF
+    }
+  }
+
+  if(prev_ChillerValue != chillerValue){
+    prev_ChillerValue = chillerValue;
+    if(chillerValue=="1"){
+      Serial.println("CHILLER IS ON NOW");
+      //JONATHAN: ADD CODE HERE TO MANIPULATE PINS WHEN CHILLER IS ON
+    } else {
+      Serial.println("CHILLER IS OFF NOW");
+      //JONATHAN: ADD CODE HERE TO MANIPULATE PINS WHEN CHILLER IS OFF
+    }      
+  }
+  
+}
 void blinkSignal(){
   Serial.println("BLINK SIGNAL INITIATED");
   for(int i=0; i<12; i++){
